@@ -67,8 +67,8 @@
     "releases_url": "https://api.github.com/repos/ankit-chaubey/profilev2/releases{/id}",
     "deployments_url": "https://api.github.com/repos/ankit-chaubey/profilev2/deployments",
     "created_at": "2026-02-04T07:11:19Z",
-    "updated_at": "2026-02-04T08:17:46Z",
-    "pushed_at": "2026-02-04T08:17:41Z",
+    "updated_at": "2026-02-04T08:18:42Z",
+    "pushed_at": "2026-02-04T08:18:38Z",
     "git_url": "git://github.com/ankit-chaubey/profilev2.git",
     "ssh_url": "git@github.com:ankit-chaubey/profilev2.git",
     "clone_url": "https://github.com/ankit-chaubey/profilev2.git",
@@ -111,28 +111,13 @@
       "JavaScript": 8253
     },
     "latest_commit": {
-      "sha": "f42f9e519ea3ef134c9e312a9fccab3852d9c28c",
-      "date": "2026-02-04T08:17:35Z",
-      "message": "fix",
-      "url": "https://github.com/ankit-chaubey/profilev2/commit/f42f9e519ea3ef134c9e312a9fccab3852d9c28c"
+      "sha": "2f802d07869f4866af0ddde8b8c6916858509850",
+      "date": "2026-02-04T08:18:38Z",
+      "message": "chore: update generated GitHub data [skip ci]",
+      "url": "https://github.com/ankit-chaubey/profilev2/commit/2f802d07869f4866af0ddde8b8c6916858509850"
     },
-    "contributors_stats": [
-      {
-        "total": 4,
-        "author": {
-          "login": "github-actions[bot]",
-          "url": "https://github.com/apps/github-actions"
-        }
-      },
-      {
-        "total": 7,
-        "author": {
-          "login": "ankit-chaubey",
-          "url": "https://github.com/ankit-chaubey"
-        }
-      }
-    ],
-    "commit_count_estimate": 11
+    "contributors_stats": null,
+    "commit_count_estimate": null
   },
   {
     "id": 466959617,
@@ -1618,8 +1603,16 @@
       "message": "chore: rename old directory to legacy",
       "url": "https://github.com/ankit-chaubey/eval-bot/commit/6ece6a4909998fccdacaba1799fb8b140216f256"
     },
-    "contributors_stats": null,
-    "commit_count_estimate": null
+    "contributors_stats": [
+      {
+        "total": 3,
+        "author": {
+          "login": "ankit-chaubey",
+          "url": "https://github.com/ankit-chaubey"
+        }
+      }
+    ],
+    "commit_count_estimate": 3
   },
   {
     "id": 953358527,
@@ -2733,8 +2726,240 @@
       "message": "Merge pull request #1664 from gotd/dependabot/go_modules/golang-6f0ef431b5\n\nchore(deps): bump the golang group with 3 updates",
       "url": "https://github.com/ankit-chaubey/go-td/commit/5a12ed25124949c52a6fb8ca0f975113debe372b"
     },
-    "contributors_stats": null,
-    "commit_count_estimate": null
+    "contributors_stats": [
+      {
+        "total": 1,
+        "author": {
+          "login": "abserari",
+          "url": "https://github.com/abserari"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "Doflatango",
+          "url": "https://github.com/Doflatango"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "emmitrin",
+          "url": "https://github.com/emmitrin"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "luk0y",
+          "url": "https://github.com/luk0y"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "shivakumargn",
+          "url": "https://github.com/shivakumargn"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "markpash",
+          "url": "https://github.com/markpash"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "okhex",
+          "url": "https://github.com/okhex"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "shelomentsevd",
+          "url": "https://github.com/shelomentsevd"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "rglKali",
+          "url": "https://github.com/rglKali"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "golshani-mhd",
+          "url": "https://github.com/golshani-mhd"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "majiayu000",
+          "url": "https://github.com/majiayu000"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "wappipro",
+          "url": "https://github.com/wappipro"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "borzovplus",
+          "url": "https://github.com/borzovplus"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "mendelmaleh",
+          "url": "https://github.com/mendelmaleh"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "nnqq",
+          "url": "https://github.com/nnqq"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "savely-krasovsky",
+          "url": "https://github.com/savely-krasovsky"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "koenigskraut",
+          "url": "https://github.com/koenigskraut"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "zumoshi",
+          "url": "https://github.com/zumoshi"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "KoNekoD",
+          "url": "https://github.com/KoNekoD"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "iyear",
+          "url": "https://github.com/iyear"
+        }
+      },
+      {
+        "total": 3,
+        "author": {
+          "login": "Jisin0",
+          "url": "https://github.com/Jisin0"
+        }
+      },
+      {
+        "total": 3,
+        "author": {
+          "login": "rojvv",
+          "url": "https://github.com/rojvv"
+        }
+      },
+      {
+        "total": 3,
+        "author": {
+          "login": "ZorinArsenij",
+          "url": "https://github.com/ZorinArsenij"
+        }
+      },
+      {
+        "total": 4,
+        "author": {
+          "login": "snimshchikov",
+          "url": "https://github.com/snimshchikov"
+        }
+      },
+      {
+        "total": 4,
+        "author": {
+          "login": "dependabot-preview[bot]",
+          "url": "https://github.com/apps/dependabot-preview"
+        }
+      },
+      {
+        "total": 5,
+        "author": {
+          "login": "dpominov",
+          "url": "https://github.com/dpominov"
+        }
+      },
+      {
+        "total": 8,
+        "author": {
+          "login": "fr0ster",
+          "url": "https://github.com/fr0ster"
+        }
+      },
+      {
+        "total": 83,
+        "author": {
+          "login": "tie",
+          "url": "https://github.com/tie"
+        }
+      },
+      {
+        "total": 141,
+        "author": {
+          "login": "shadowspore",
+          "url": "https://github.com/shadowspore"
+        }
+      },
+      {
+        "total": 231,
+        "author": {
+          "login": "actions-user",
+          "url": "https://github.com/actions-user"
+        }
+      },
+      {
+        "total": 518,
+        "author": {
+          "login": "dependabot[bot]",
+          "url": "https://github.com/apps/dependabot"
+        }
+      },
+      {
+        "total": 870,
+        "author": {
+          "login": "tdakkota",
+          "url": "https://github.com/tdakkota"
+        }
+      },
+      {
+        "total": 1082,
+        "author": {
+          "login": "ernado",
+          "url": "https://github.com/ernado"
+        }
+      }
+    ],
+    "commit_count_estimate": 2983
   },
   {
     "id": 955437882,
@@ -3267,37 +3492,8 @@
       "message": "Add userbot example.",
       "url": "https://github.com/ankit-chaubey/PyClient/commit/009c96db1912a8592beb01fd920fc3b2315fb45b"
     },
-    "contributors_stats": [
-      {
-        "total": 1,
-        "author": {
-          "login": "Kylmakalle",
-          "url": "https://github.com/Kylmakalle"
-        }
-      },
-      {
-        "total": 1,
-        "author": {
-          "login": "killometrs",
-          "url": "https://github.com/killometrs"
-        }
-      },
-      {
-        "total": 2,
-        "author": {
-          "login": "github-actions[bot]",
-          "url": "https://github.com/apps/github-actions"
-        }
-      },
-      {
-        "total": 628,
-        "author": {
-          "login": "AYMENJD",
-          "url": "https://github.com/AYMENJD"
-        }
-      }
-    ],
-    "commit_count_estimate": 632
+    "contributors_stats": null,
+    "commit_count_estimate": null
   },
   {
     "id": 890774928,
@@ -5032,8 +5228,16 @@
       "message": "Initial commit for TelegraphBot",
       "url": "https://github.com/ankit-chaubey/TelegraphBot/commit/c02cc30d02116b751c998f84f198c10b27ba82e5"
     },
-    "contributors_stats": null,
-    "commit_count_estimate": null
+    "contributors_stats": [
+      {
+        "total": 1,
+        "author": {
+          "login": "ankit-chaubey",
+          "url": "https://github.com/ankit-chaubey"
+        }
+      }
+    ],
+    "commit_count_estimate": 1
   },
   {
     "id": 888354983,
@@ -5300,7 +5504,211 @@
       "message": "Update CNAME",
       "url": "https://github.com/ankit-chaubey/text-to-handwriting/commit/a7fcc82e195532443517042b1bddfe673d68835f"
     },
-    "contributors_stats": null,
-    "commit_count_estimate": null
+    "contributors_stats": [
+      {
+        "total": 1,
+        "author": {
+          "login": "Tushar-OP",
+          "url": "https://github.com/Tushar-OP"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "MrHeer",
+          "url": "https://github.com/MrHeer"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "subodhk01",
+          "url": "https://github.com/subodhk01"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "amansharma07",
+          "url": "https://github.com/amansharma07"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "harshilparmar",
+          "url": "https://github.com/harshilparmar"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "prafulla-codes",
+          "url": "https://github.com/prafulla-codes"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "Himanshunitrr",
+          "url": "https://github.com/Himanshunitrr"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "arsandev",
+          "url": "https://github.com/arsandev"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "tegarsantosa",
+          "url": "https://github.com/tegarsantosa"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "Jobin-S",
+          "url": "https://github.com/Jobin-S"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "Manaswini1832",
+          "url": "https://github.com/Manaswini1832"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "afrozchakure",
+          "url": "https://github.com/afrozchakure"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "subho57",
+          "url": "https://github.com/subho57"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "StTronn",
+          "url": "https://github.com/StTronn"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "dependabot[bot]",
+          "url": "https://github.com/apps/dependabot"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "sbhrwlr",
+          "url": "https://github.com/sbhrwlr"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "NicolaeO",
+          "url": "https://github.com/NicolaeO"
+        }
+      },
+      {
+        "total": 1,
+        "author": {
+          "login": "Pandimurugan12",
+          "url": "https://github.com/Pandimurugan12"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "ShivamMundhra",
+          "url": "https://github.com/ShivamMundhra"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "The-Jin-799",
+          "url": "https://github.com/The-Jin-799"
+        }
+      },
+      {
+        "total": 2,
+        "author": {
+          "login": "RinkiyaKeDad",
+          "url": "https://github.com/RinkiyaKeDad"
+        }
+      },
+      {
+        "total": 3,
+        "author": {
+          "login": "sdipanshu",
+          "url": "https://github.com/sdipanshu"
+        }
+      },
+      {
+        "total": 3,
+        "author": {
+          "login": "anirudh1200",
+          "url": "https://github.com/anirudh1200"
+        }
+      },
+      {
+        "total": 5,
+        "author": {
+          "login": "nikhilbhatt",
+          "url": "https://github.com/nikhilbhatt"
+        }
+      },
+      {
+        "total": 6,
+        "author": {
+          "login": "anuraghazra",
+          "url": "https://github.com/anuraghazra"
+        }
+      },
+      {
+        "total": 8,
+        "author": {
+          "login": "pathakshashank17",
+          "url": "https://github.com/pathakshashank17"
+        }
+      },
+      {
+        "total": 12,
+        "author": {
+          "login": "ankit-chaubey",
+          "url": "https://github.com/ankit-chaubey"
+        }
+      },
+      {
+        "total": 15,
+        "author": {
+          "login": "vasu-chaubey",
+          "url": "https://github.com/vasu-chaubey"
+        }
+      },
+      {
+        "total": 155,
+        "author": {
+          "login": "saurabhdaware",
+          "url": "https://github.com/saurabhdaware"
+        }
+      }
+    ],
+    "commit_count_estimate": 231
   }
 ]
