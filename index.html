@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ankit Chaubey — Projects & Profile</title>
+  <meta name="description" content="Ankit Chaubey — curiosity-driven learner. Systems, APIs, automation, and low-level tooling." />
+  <meta name="author" content="Ankit Chaubey" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0b1220" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* Masterpiece-ready static profile page that reads pre-generated data from /data/*.json and /data/contrib.svg
+       - Supports Dark / Light / AMOLED themes with smooth animated crossfade
+       - Avoids direct GitHub API calls -> no rate limit problems for visitors
+       - Mobile-first layout and horizontal compact repo meta on small screens
+       - Shows stars, forks, languages (multiple with percentages), last commit, homepage, orgs, joined date, total repos, total commits (best-effort from generator)
+    */
+
+    :root{
+      --bg: #0b1220;
+      --panel: #0f172a;
+      --text: #e6eef6;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-2: #7c3aed;
+      --border: rgba(255,255,255,0.06);
+      --card-radius: 16px;
+      --shadow: 0 10px 30px rgba(2,6,23,0.6);
+      --transition: 320ms;
+    }
+
+    body.light{
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #071022;
+      --muted: #475569;
+      --accent: #0284c7;
+      --accent-2: #7c3aed;
+      --border: rgba(15,23,42,0.06);
+      --shadow: 0 8px 24px rgba(2,6,23,0.06);
+    }
+
+    body.amoled{
+      --bg: #000000;
+      --panel: #000000;
+      --text: #e6eef6;
+      --muted: #9aa4b2;
+      --accent: #00e5ff;
+      --accent-2: #ff3b99;
+      --border: rgba(255,255,255,0.04);
+      --shadow: none;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+      background:
+        radial-gradient(900px 360px at 12% -12%, rgba(56,189,248,0.06), transparent),
+        var(--bg);
+      color:var(--text);
+      transition: background var(--transition) ease, color var(--transition) ease;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding-bottom:48px;
+    }
+
+    a{color:var(--accent)}
+    a:hover{text-decoration:underline}
+
+    .container{max-width:1100px;margin:28px auto;padding:22px}
+
+    header.top{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;
+    }
+    .left{display:flex;align-items:center;gap:16px}
+    .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:1px solid var(--border);flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent-2));transition:transform 380ms cubic-bezier(.2,.9,.2,1)}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{font-size:2rem;margin:0 0 6px 0}
+    .subtitle{margin:0;color:var(--muted);max-width:720px}
+
+    .controls{display:flex;gap:8px;align-items:center}
+    .btn{
+      background:var(--panel);border:1px solid var(--border);padding:8px 12px;border-radius:999px;color:var(--text);cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:transform 120ms}
+    .btn:active{transform:translateY(1px)}
+    .theme-overlay{pointer-events:none;position:fixed;inset:0;background:var(--bg);opacity:0;transition:opacity 320ms;z-index:999}
+    .theme-changing .theme-overlay{opacity:1}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}.controls{justify-content:flex-end}}
+
+    .card{background:linear-gradient(180deg,var(--panel),transparent);border-radius:14px;padding:18px;border:1px solid var(--border);box-shadow:var(--shadow);transition:transform 220ms}
+    .card h2{margin:0 0 8px 0}
+    .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .stat{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;border:1px solid var(--border);color:var(--muted);font-weight:700}
+
+    .repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:12px}
+    .repo{padding:12px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    .repo h3{margin:0 0 8px 0;font-size:1rem}
+    .repo p{margin:0;color:var(--muted);min-height:44px}
+    .meta-row{display:flex;gap:10px;align-items:center;margin-top:10px;color:var(--muted);flex-wrap:wrap}
+    .meta-row .small{font-size:0.88rem}
+    .lang-list{display:flex;gap:8px;flex-wrap:wrap}
+    .lang-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 8px;border-radius:999px;border:1px solid var(--border);font-weight:700;color:var(--muted);font-size:0.86rem}
+
+    /* compact horizontal meta for mobile */
+    @media(max-width:520px){
+      .meta-row{flex-direction:row;align-items:center}
+      .repo p{min-height:28px}
+    }
+
+    .contrib{width:100%;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-top:8px}
+    .contrib img{display:block;width:100%;height:auto}
+
+    .fade{opacity:0;transform:translateY(8px);transition:opacity 420ms,transform 420ms}
+    .fade.show{opacity:1;transform:none}
+
+    .skeleton{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04), rgba(255,255,255,0.02));height:12px;border-radius:6px;animation:shimmer 1.6s linear infinite}
+    @keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+
+    footer{text-align:center;margin-top:28px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="theme-overlay" aria-hidden="true"></div>
+
+  <main class="container">
+    <header class="top fade" role="banner">
+      <div class="left">
+        <div class="avatar" id="avatarWrap">
+          <img id="avatarImg" src="" alt="Avatar">
+        </div>
+        <div>
+          <h1 id="displayName">Ankit Chaubey</h1>
+          <p class="subtitle" id="bio">Curiosity-driven learner exploring systems, APIs, automation, and low-level tooling.</p>
+          <p style="margin:6px 0 0 0;color:var(--muted)" id="joined">Joined: — · Username: <span id="login">—</span></p>
+        </div>
+      </div>
+      <div class="controls" role="navigation" aria-label="Actions">
+        <a id="profileBtn" class="btn" href="#" target="_blank" rel="noopener noreferrer">View GitHub</a>
+        <button id="themeBtn" class="btn" aria-label="Toggle theme">Theme</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card fade" aria-labelledby="aboutTitle">
+        <h2 id="aboutTitle">About</h2>
+        <p id="aboutText">I’m a college student from India who enjoys understanding how systems work by building small tools, experimenting with APIs, and automating workflows. Programming is a tool for understanding — not the destination.</p>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;margin-top:12px">
+          <div style="flex:1">
+            <div class="stats" id="mainStats">
+              <div class="stat">Loading…</div>
+            </div>
+
+            <div style="margin-top:12px">
+              <strong>What I use</strong>
+              <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px">
+                <span class="lang-pill">Python</span>
+                <span class="lang-pill">Go</span>
+                <span class="lang-pill">C / C++</span>
+                <span class="lang-pill">Linux</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="width:220px">
+            <div class="contrib" title="Contribution graph">
+              <img id="contribSvg" src="/data/contrib.svg" alt="Contribution graph" />
+            </div>
+          </div>
+        </div>
+
+        <hr style="margin:16px 0;border:none;border-top:1px solid var(--border)">
+
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0">Top repositories</h3>
+          <div style="color:var(--muted)" id="lastCommit">Last commit: —</div>
+        </div>
+
+        <div id="pinned" class="repo-grid" style="margin-top:12px">
+          <!-- filled by JS -->
+          <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
+          <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
+        </div>
+      </section>
+
+      <aside>
+        <section class="card fade">
+          <h3 style="margin-top:0">Contact</h3>
+          <p style="margin:8px 0">
+            <strong>Email:</strong> <span id="email">m.ankitchaubey@gmail.com</span><br>
+            <strong>GitHub:</strong> <span id="loginInline">—</span><br>
+            <strong>Telegram:</strong> <a href="https://t.me/ankify" target="_blank">@ankify</a>
+          </p>
+        </section>
+
+        <section class="card fade" style="margin-top:14px">
+          <h3 style="margin-top:0">Organizations</h3>
+          <div id="orgList" style="margin-top:8px">
+            <!-- filled by JS -->
+            <div class="skeleton" style="width:80%;height:12px;border-radius:6px"></div>
+          </div>
+        </section>
+
+        <section class="card fade" style="margin-top:14px">
+          <h3 style="margin-top:0">Activity & summary</h3>
+          <div style="margin-top:8px;color:var(--muted)">
+            <div>Total public repos: <strong id="totalPublic">—</strong></div>
+            <div>Source repos indexed: <strong id="totalSource">—</strong></div>
+            <div>Total forks: <strong id="totalForks">—</strong></div>
+            <div>Followers: <strong id="followers">—</strong></div>
+            <div>Total commits (partial): <strong id="totalCommits">—</strong></div>
+            <div style="margin-top:8px">Last updated: <strong id="updatedAt">—</strong></div>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <section class="card fade" style="margin-top:20px">
+      <h2 style="margin-top:0">All repositories</h2>
+      <div id="reposGrid" class="repo-grid" style="margin-top:12px">
+        <!-- filled by JS -->
+        <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
+        <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
+      </div>
+    </section>
+
+    <footer class="fade" style="margin-top:24px">
+      © <span id="year"></span> Ankit Chaubey · Built with simplicity
+    </footer>
+  </main>
+
+  <script>
+    // Client-side viewer for pre-generated data in /data/
+    // Expects these files in the repository (generated by GitHub Actions):
+    // - /data/profile.json
+    // - /data/repos.json
+    // - /data/orgs.json
+    // - /data/summary.json
+    // - /data/contrib.svg  (served at /data/contrib.svg)
+    //
+    // The page itself does not call GitHub API; it only fetches static files published with the site.
+    // This avoids rate limits and ensures every visitor sees consistent, fast data.
+
+    const USER = 'ankit-chaubey';
+    const dataBase = '/data';
+    const profileUrl = `${dataBase}/profile.json`;
+    const reposUrl = `${dataBase}/repos.json`;
+    const orgsUrl = `${dataBase}/orgs.json`;
+    const summaryUrl = `${dataBase}/summary.json`;
+    const contribUrl = `${dataBase}/contrib.svg`;
+
+    function $id(id){ return document.getElementById(id); }
+    function fmtDate(iso){ if(!iso) return '—'; try{ return new Date(iso).toLocaleDateString(); }catch(e){ return iso; } }
+    function escapeHtml(s){ return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
+
+    async function fetchJson(url){
+      try{
+        const res = await fetch(url, {cache: "no-cache"});
+        if(!res.ok) throw new Error('Not found');
+        return res.json();
+      }catch(e){
+        return null;
+      }
+    }
+
+    async function init(){
+      document.querySelectorAll('.fade').forEach((el,i)=> setTimeout(()=> el.classList.add('show'), 60*i));
+      $id('year').textContent = new Date().getFullYear();
+
+      // load summary first (fast)
+      const summary = await fetchJson(summaryUrl);
+      if(summary){
+        $id('totalPublic').textContent = summary.total_public_repos ?? '—';
+        $id('totalSource').textContent = summary.source_repos_count ?? '—';
+        $id('totalForks').textContent = summary.total_forks ?? '—';
+        $id('followers').textContent = summary.followers ?? '—';
+        $id('totalCommits').textContent = summary.total_commits ?? '—';
+        $id('updatedAt').textContent = summary.updated_at ? fmtDate(summary.updated_at) : '—';
+      }
+
+      // load profile
+      const profile = await fetchJson(profileUrl);
+      if(profile){
+        $id('avatarImg').src = profile.avatar_url;
+        $id('displayName').textContent = profile.name || profile.login;
+        $id('bio').textContent = profile.bio || '';
+        $id('joined').textContent = `Joined: ${fmtDate(profile.created_at)} · Username: ${profile.login}`;
+        $id('profileBtn').href = profile.html_url;
+        $id('login').textContent = profile.login;
+        $id('loginInline').textContent = profile.login;
+      } else {
+        // fallback: still show username
+        $id('login').textContent = USER;
+        $id('loginInline').textContent = USER;
+      }
+
+      // contribution image
+      const cimg = $id('contribSvg');
+      cimg.src = contribUrl;
+      cimg.onerror = ()=> { /* ignore, maybe missing */ };
+
+      // load orgs
+      const orgs = await fetchJson(orgsUrl);
+      if(orgs && Array.isArray(orgs) && orgs.length > 0){
+        const node = $id('orgList');
+        node.innerHTML = '';
+        orgs.forEach(o=>{
+          const el = document.createElement('div');
+          el.style.display = 'flex'; el.style.gap = '10px'; el.style.alignItems = 'center'; el.style.marginBottom = '10px';
+          el.innerHTML = `<img src="${o.avatar_url}" alt="${o.login}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--border)"><div style="flex:1"><strong>${escapeHtml(o.login)}</strong><div style="color:var(--muted);font-size:0.92rem">${escapeHtml(o.description || '')}</div></div><a style="color:var(--accent)" href="${o.html_url}" target="_blank" rel="noopener noreferrer">View</a>`;
+          node.appendChild(el);
+        });
+      }
+
+      // load repos
+      const repos = await fetchJson(reposUrl);
+      if(repos && Array.isArray(repos)){
+        // pinned/top: sort by stars then recent -> top 6
+        const source = repos.filter(r=> !r.fork);
+        const top = [...source].sort((a,b)=> (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at))).slice(0,6);
+        renderRepoList($id('pinned'), top);
+        renderRepoList($id('reposGrid'), source);
+
+        // update last commit cheap: from summary or repos
+        const last = repos.reduce((m,r)=> r.pushed_at > m ? r.pushed_at : m, repos[0]?.pushed_at || null);
+        $id('lastCommit').textContent = `Last commit: ${fmtDate(last)}`;
+      } else {
+        $id('pinned').innerHTML = '<div style="color:var(--muted)">No repository data available.</div>';
+        $id('reposGrid').innerHTML = '<div style="color:var(--muted)">No repository data available.</div>';
+      }
+    }
+
+    function renderRepoList(container, list){
+      container.innerHTML = '';
+      if(!list || list.length === 0){
+        container.innerHTML = '<div style="color:var(--muted)">No repositories</div>'; return;
+      }
+
+      list.forEach(r=>{
+        const div = document.createElement('div');
+        div.className = 'repo';
+        const homepage = r.homepage ? `<a href="${r.homepage}" target="_blank" rel="noopener noreferrer">Website</a> · ` : '';
+        const desc = r.description ? escapeHtml(r.description) : 'No description provided.';
+        const latest = r.latest_commit?.date ? `Last commit: ${fmtDate(r.latest_commit.date)}` : `Updated: ${fmtDate(r.pushed_at)}`;
+        // languages: object {lang:bytes} -> map to top 3 with percentages
+        let langsHtml = '';
+        if(r.languages && Object.keys(r.languages).length){
+          const entries = Object.entries(r.languages).sort((a,b)=>b[1]-a[1]).slice(0,4);
+          const total = entries.reduce((s,[,v])=>s+v,0);
+          const pills = entries.map(([lang,bytes])=>{
+            const pct = Math.round((bytes/total)*100);
+            return `<span class="lang-pill"><span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:${langColor(lang)}"></span>${escapeHtml(lang)} ${pct}%</span>`;
+          }).join(' ');
+          langsHtml = `<div class="lang-list">${pills}</div>`;
+        }
+
+        const commitMsg = r.latest_commit?.message ? ` · "${escapeHtml(r.latest_commit.message)}"` : '';
+
+        div.innerHTML = `
+          <h3><a href="${r.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.name)}</a></h3>
+          <p>${desc}</p>
+          ${langsHtml}
+          <div class="meta-row">
+            <div class="small">${homepage}★ ${r.stargazers_count || 0} · Forks: ${r.forks_count || 0}</div>
+            <div class="small">${latest}${commitMsg}</div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function langColor(lang){
+      const MAP = { 'JavaScript':'#f1e05a','TypeScript':'#2b7489','Python':'#3572A5','Go':'#00ADD8','C':'#555555','C++':'#f34b7d','Rust':'#dea584','Java':'#b07219','HTML':'#e34c26','CSS':'#563d7c','Shell':'#89e051' };
+      return MAP[lang] || '#94a3b8';
+    }
+
+    // theme handling (cycles and smooth overlay)
+    (function themeInit(){
+      const THEMES = ['dark','light','amoled'];
+      const KEY = 'site-theme';
+      function get(){ return localStorage.getItem(KEY) || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); }
+      function apply(t){ document.body.classList.remove(...THEMES); document.body.classList.add(t); document.querySelector('meta[name="theme-color"]').content = t === 'amoled' ? '#000000' : getComputedStyle(document.body).getPropertyValue('--bg').trim(); document.getElementById('themeBtn').textContent = `Theme (${t})`; }
+      function cycle(){
+        const cur = get(); const idx = THEMES.indexOf(cur); const nxt = THEMES[(idx+1)%THEMES.length];
+        document.body.classList.add('theme-changing');
+        document.querySelector('.theme-overlay').style.opacity = '1';
+        setTimeout(()=>{ localStorage.setItem(KEY,nxt); apply(nxt); document.querySelector('.theme-overlay').style.opacity = '0'; setTimeout(()=>document.body.classList.remove('theme-changing'), 320); }, 220);
+      }
+      apply(get());
+      document.getElementById('themeBtn').addEventListener('click', cycle);
+      window.addEventListener('keydown', e => { if(e.key === 't' && !/input|textarea/i.test(document.activeElement?.tagName)) cycle(); });
+    })();
+
+    init();
+  </script>
+</body>
+</html>

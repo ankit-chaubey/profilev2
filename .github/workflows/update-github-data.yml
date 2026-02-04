@@ -1,0 +1,63 @@
+name: Update GitHub Data (generate /data/*)
+
+on:
+  schedule:
+    - cron: '0 2 * * *'    # run daily at 02:00 UTC (adjust as you like)
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write   # allow committing generated files back to repo
+  id-token: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+        working-directory: .
+
+      - name: Run generator script
+        env:
+          USERNAME: ankit-chaubey
+          # Use GITHUB_TOKEN (limited) or create a PAT and set as repo secret PERSONAL_TOKEN for higher rate limits
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        run: |
+          # Prefer PERSONAL_TOKEN if present
+          if [ -n "${PERSONAL_TOKEN}" ]; then
+            export ACTIVE_TOKEN="${PERSONAL_TOKEN}"
+          else
+            export ACTIVE_TOKEN="${GITHUB_TOKEN}"
+          fi
+          node scripts/generate.js --token="${ACTIVE_TOKEN}" --user="${USERNAME}"
+        working-directory: .
+
+      - name: Commit generated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data || true
+          # Only commit if there are changes
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update generated GitHub data [skip ci]" || true
+            git push
+          else
+            echo "No changes to commit"
+          fi
+        working-directory: .

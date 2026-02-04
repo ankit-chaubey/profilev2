@@ -1,0 +1,16 @@
+{
+  "name": "github-profile-generator",
+  "version": "1.0.0",
+  "description": "Generate static GitHub profile data for GitHub Pages usage",
+  "main": "scripts/generate.js",
+  "scripts": {
+    "generate": "node scripts/generate.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^19.0.0",
+    "node-fetch": "^2.6.7"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
