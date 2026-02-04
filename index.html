@@ -10,15 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /*
-      Masterpiece static viewer (index.html)
-      - Reads pre-generated files from /data/ (profile.json, repos.json, summary.json, orgs.json, pinned.json, contrib.svg)
-      - No GitHub API calls from the browser (avoids rate limits)
-      - Smooth theme transitions (Dark / Light / AMOLED), keyboard 't' to toggle
-      - Responsive, mobile-first layout; repo meta is horizontal on small screens
-      - Pinned.json support: if present, pins are shown in the order defined; otherwise top-by-stars
-    */
-
+    /* (same CSS as before — unchanged) */
     :root{
       --bg:#0b1220; --panel:#0f172a; --text:#e6eef6; --muted:#9ca3af;
       --accent:#38bdf8; --accent-2:#7c3aed; --border:rgba(255,255,255,0.06);
@@ -26,7 +18,6 @@
     }
     body.light{ --bg:#f8fafc; --panel:#fff; --text:#071022; --muted:#475569; --accent:#0284c7; --accent-2:#7c3aed; --border:rgba(15,23,42,0.06); --shadow:0 8px 24px rgba(2,6,23,0.06) }
     body.amoled{ --bg:#000; --panel:#000; --text:#e6eef6; --muted:#9aa4b2; --accent:#00e5ff; --accent-2:#ff3b99; --border:rgba(255,255,255,0.04); --shadow:none }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -38,13 +29,10 @@
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
       line-height:1.5; padding-bottom:48px;
     }
-
     a{color:var(--accent)} a:hover{text-decoration:underline}
-
     .container{max-width:1100px;margin:28px auto;padding:22px}
     .theme-overlay{pointer-events:none;position:fixed;inset:0;background:var(--bg);opacity:0;transition:opacity 260ms;z-index:9999}
     .theme-changing .theme-overlay{opacity:1}
-
     header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}
     .left{display:flex;align-items:center;gap:16px}
     .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:1px solid var(--border);background:linear-gradient(135deg,var(--accent),var(--accent-2));flex-shrink:0}
@@ -52,18 +40,14 @@
     h1{font-size:2rem;margin:0 0 6px 0}
     .subtitle{margin:0;color:var(--muted);max-width:720px}
     .controls{display:flex;gap:8px;align-items:center}
-
     .btn{background:linear-gradient(180deg,var(--panel),transparent);border:1px solid var(--border);padding:8px 12px;border-radius:999px;color:var(--text);cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:8px}
     .btn:active{transform:translateY(1px)} .btn:focus{outline:3px solid rgba(56,189,248,0.12);outline-offset:4px}
-
     .grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
     @media(max-width:980px){.grid{grid-template-columns:1fr}}
-
     .card{background:linear-gradient(180deg,var(--panel),transparent);border-radius:var(--card-radius);padding:18px;border:1px solid var(--border);box-shadow:var(--shadow);transition:transform 220ms}
     .card h2{margin:0 0 8px 0}
     .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
     .stat{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;border:1px solid var(--border);color:var(--muted);font-weight:700}
-
     .repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:12px}
     .repo{padding:12px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
     .repo h3{margin:0 0 8px 0;font-size:1rem}
@@ -72,23 +56,13 @@
     .meta-row .small{font-size:0.88rem}
     .lang-list{display:flex;gap:8px;flex-wrap:wrap}
     .lang-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 8px;border-radius:999px;border:1px solid var(--border);font-weight:700;color:var(--muted);font-size:0.86rem}
-
-    /* mobile: keep repo meta horizontal and compact */
-    @media(max-width:520px){
-      .repo p{min-height:28px}
-      .meta-row{flex-direction:row}
-      header.top{flex-direction:column;align-items:flex-start;gap:12px}
-    }
-
+    @media(max-width:520px){ .repo p{min-height:28px} .meta-row{flex-direction:row} header.top{flex-direction:column;align-items:flex-start;gap:12px} }
     .contrib{width:100%;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-top:8px}
     .contrib img{display:block;width:100%;height:auto}
-
     .fade{opacity:0;transform:translateY(8px);transition:opacity 420ms,transform 420ms}
     .fade.show{opacity:1;transform:none}
-
     .skeleton{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04), rgba(255,255,255,0.02));height:12px;border-radius:6px;animation:shimmer 1.6s linear infinite}
     @keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
-
     footer{text-align:center;margin-top:28px;color:var(--muted)}
   </style>
 </head>
@@ -96,6 +70,7 @@
   <div class="theme-overlay" aria-hidden="true"></div>
 
   <main class="container" role="main" aria-live="polite">
+    <!-- (the HTML content remains the same as your file) -->
     <header class="top fade" role="banner">
       <div class="left">
         <div class="avatar" id="avatarWrap"><img id="avatar" src="" alt="Avatar"></div>
@@ -147,7 +122,6 @@
         </div>
 
         <div id="pinned" class="repo-grid" style="margin-top:12px">
-          <!-- pinned repos or top-by-stars -->
           <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
           <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
         </div>
@@ -195,23 +169,74 @@
 
   <script>
     /*
-      Viewer JS
-      - Loads: /data/profile.json, /data/repos.json, /data/summary.json, /data/orgs.json, /data/pinned.json
-      - Uses pinned.json order when available and falling back to top-by-stars
-      - Renders multi-language breakdown, last commit (from repo.latest_commit if present), homepage link, stars, forks
-      - Graceful messages if data not yet generated
+      Robust viewer script:
+      - computes DATA_BASE dynamically (works at / or /<repo>/)
+      - fetches files with fallback and logs useful diagnostics
+      - previously used absolute '/data' which can break when hosted under /profilev2/
     */
 
     (function(){
-      const DATA = '/data';
-      const FILES = {
-        profile: `${DATA}/profile.json`,
-        repos: `${DATA}/repos.json`,
-        summary: `${DATA}/summary.json`,
-        orgs: `${DATA}/orgs.json`,
-        pinned: `${DATA}/pinned.json`
-      };
+      // compute site base so path works for both root and repo pages
+      function computeSiteBase(){
+        // e.g. pathname = "/profilev2/" or "/profilev2/index.html" or "/"
+        let p = location.pathname || '/';
+        // if the path has a filename without trailing slash, remove it
+        if(!p.endsWith('/')){
+          const idx = p.lastIndexOf('/');
+          p = idx >= 0 ? p.slice(0, idx+1) : '/';
+        }
+        // ensure it ends with slash
+        if(!p.endsWith('/')) p += '/';
+        return p;
+      }
 
+      const SITE_BASE = computeSiteBase();
+      const DATA_BASE = SITE_BASE + 'data'; // e.g. '/profilev2/data' or '/data' depending on site
+      console.debug('[profilev2] SITE_BASE:', SITE_BASE, 'DATA_BASE:', DATA_BASE);
+
+      function dataUrl(filename){
+        // normalize filename
+        const name = filename.replace(/^\/+/, '');
+        return `${DATA_BASE}/${name}`;
+      }
+
+      // fallback fetcher: try DATA_BASE first, then absolute /data/
+      async function fetchJsonWithFallback(filename){
+        const url1 = dataUrl(filename);
+        try{
+          console.debug('[profilev2] fetching', url1);
+          const r = await fetch(url1, {cache:'no-cache'});
+          if(r.ok) {
+            console.debug('[profilev2] fetched', url1, 'OK');
+            return await r.json();
+          }
+          console.warn('[profilev2] fetch returned', r.status, 'for', url1);
+        }catch(e){
+          console.warn('[profilev2] fetch error for', url1, e);
+        }
+        // fallback to absolute '/data'
+        const url2 = `/data/${filename.replace(/^\/+/, '')}`;
+        try{
+          console.debug('[profilev2] fallback fetching', url2);
+          const r2 = await fetch(url2, {cache:'no-cache'});
+          if(r2.ok) return await r2.json();
+          console.warn('[profilev2] fallback fetch returned', r2.status, 'for', url2);
+        }catch(e){
+          console.warn('[profilev2] fallback fetch error for', url2, e);
+        }
+        return null;
+      }
+
+      // update contrib image path robustly
+      const contribImg = document.getElementById('contrib');
+      if(contribImg){
+        const contribPath1 = dataUrl('contrib.svg');
+        contribImg.src = contribPath1;
+        // also set fallback onerror to try root /data/
+        contribImg.onerror = () => { if(!contribImg.dataset.fallback) { contribImg.dataset.fallback = '1'; contribImg.src = '/data/contrib.svg'; } };
+      }
+
+      // DOM refs
       const qs = s => document.querySelector(s);
       const avatarEl = qs('#avatar');
       const nameEl = qs('#name');
@@ -233,43 +258,14 @@
       const updatedAtEl = qs('#updatedAt');
       const yearEl = qs('#year');
 
+      // helpers
+      function fmtDate(iso){ if(!iso) return '—'; try{ return new Date(iso).toLocaleDateString(); }catch(e){ return iso; } }
+      function esc(s){ return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
+      function langColor(lang){ const M = {'JavaScript':'#f1e05a','TypeScript':'#2b7489','Python':'#3572A5','Go':'#00ADD8','C':'#555','C++':'#f34b7d','Rust':'#dea584','Java':'#b07219','HTML':'#e34c26','CSS':'#563d7c','Shell':'#89e051'}; return M[lang] || '#94a3b8'; }
+
       yearEl.textContent = new Date().getFullYear();
 
-      // theme handling: dark / light / amoled with overlay crossfade
-      const THEMES = ['dark','light','amoled'];
-      const KEY = 'site-theme';
-      const overlay = document.querySelector('.theme-overlay');
-      const themeBtn = qs('#themeBtn');
-      function getTheme(){ return localStorage.getItem(KEY) || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); }
-      function applyTheme(t){ document.body.classList.remove(...THEMES); document.body.classList.add(t); document.getElementById('themeBtn').textContent = `Theme (${t})`; }
-      function cycleTheme(){
-        const cur = getTheme(); const idx = THEMES.indexOf(cur); const nxt = THEMES[(idx+1)%THEMES.length];
-        document.body.classList.add('theme-changing');
-        overlay.style.opacity = '1';
-        setTimeout(()=>{ localStorage.setItem(KEY, nxt); applyTheme(nxt); overlay.style.opacity='0'; setTimeout(()=>document.body.classList.remove('theme-changing'), 300); }, 220);
-      }
-      applyTheme(getTheme());
-      themeBtn.addEventListener('click', cycleTheme);
-      window.addEventListener('keydown', e => { if(e.key === 't' && !/input|textarea/i.test(document.activeElement?.tagName)) cycleTheme(); });
-
-      // small helpers
-      function el(tag, attrs = {}, inner = ''){ const d = document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>d.setAttribute(k,v)); d.innerHTML = inner; return d; }
-      function fmtDate(iso){ if(!iso) return '—'; try { return new Date(iso).toLocaleDateString(); } catch(e){ return iso; } }
-      function esc(s){ return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
-
-      async function fetchJson(url){
-        try{
-          const r = await fetch(url, {cache: 'no-cache'});
-          if(!r.ok) return null;
-          return await r.json();
-        }catch(e){ return null; }
-      }
-
-      function langColor(lang){
-        const M = {'JavaScript':'#f1e05a','TypeScript':'#2b7489','Python':'#3572A5','Go':'#00ADD8','C':'#555','C++':'#f34b7d','Rust':'#dea584','Java':'#b07219','HTML':'#e34c26','CSS':'#563d7c','Shell':'#89e051'};
-        return M[lang] || '#94a3b8';
-      }
-
+      // repo card
       function repoCard(r){
         const div = document.createElement('div');
         div.className = 'repo';
@@ -286,7 +282,6 @@
           }).join(' ');
           langsHtml = `<div class="lang-list">${pills}</div>`;
         }
-
         const commitMsg = r.latest_commit && r.latest_commit.message ? ` · "${esc(r.latest_commit.message)}"` : '';
         div.innerHTML = `
           <h3><a href="${r.html_url}" target="_blank" rel="noopener">${esc(r.name)}</a></h3>
@@ -300,10 +295,12 @@
         return div;
       }
 
-      // Main loader: loads summary/profile/repos/orgs/pinned when available
+      // main loader with diagnostics
       (async function loadAll(){
-        // summary first (fast)
-        const summary = await fetchJson(FILES.summary);
+        console.debug('[profilev2] starting data load from', DATA_BASE);
+
+        // summary
+        const summary = await fetchJsonWithFallback('summary.json');
         if(summary){
           totalPublicEl.textContent = summary.total_public_repos ?? '—';
           totalSourceEl.textContent = summary.source_repos_count ?? '—';
@@ -311,9 +308,12 @@
           followersEl.textContent = summary.followers ?? '—';
           totalCommitsEl.textContent = summary.total_commits ? `${summary.total_commits} (partial)` : '—';
           updatedAtEl.textContent = summary.updated_at ? fmtDate(summary.updated_at) : '—';
+        } else {
+          console.warn('[profilev2] summary.json not found or invalid');
         }
 
-        const profile = await fetchJson(FILES.profile);
+        // profile
+        const profile = await fetchJsonWithFallback('profile.json');
         if(profile){
           avatarEl.src = profile.avatar_url || '';
           nameEl.textContent = profile.name || profile.login || '—';
@@ -322,9 +322,12 @@
           profileBtn.href = profile.html_url || '#';
           loginEl.textContent = profile.login || '—';
           loginInlineEl.textContent = profile.login || '—';
+        } else {
+          console.warn('[profilev2] profile.json not found or invalid');
         }
 
-        const orgs = await fetchJson(FILES.orgs);
+        // orgs
+        const orgs = await fetchJsonWithFallback('orgs.json');
         if(Array.isArray(orgs) && orgs.length){
           orgsContainer.innerHTML = '';
           orgs.forEach(o=>{
@@ -333,55 +336,55 @@
             d.innerHTML = `<img src="${o.avatar_url}" alt="${o.login}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--border)"><div style="flex:1"><strong>${esc(o.login)}</strong><div style="color:var(--muted);font-size:0.92rem">${esc(o.description||'')}</div></div><a style="color:var(--accent)" href="${o.html_url}" target="_blank" rel="noopener">View</a>`;
             orgsContainer.appendChild(d);
           });
+        } else {
+          console.debug('[profilev2] orgs.json empty or missing');
         }
 
-        const repos = await fetchJson(FILES.repos);
-        let repoList = Array.isArray(repos) ? repos : [];
-        if(repoList.length === 0){
+        // repos
+        const repos = await fetchJsonWithFallback('repos.json');
+        if(!Array.isArray(repos) || repos.length === 0){
           reposGrid.innerHTML = '<div style="color:var(--muted)">Repository data not yet generated. Run the generator workflow.</div>';
           pinnedContainer.innerHTML = '<div style="color:var(--muted)">Repository data not yet generated.</div>';
+          console.warn('[profilev2] repos.json empty or missing');
           return;
         }
 
-        // put latest commit in header (cheap)
-        const last = repoList.reduce((m,r)=> r.pushed_at > m ? r.pushed_at : m, repoList[0].pushed_at || null);
+        // last commit
+        const last = repos.reduce((m,r)=> r.pushed_at > m ? r.pushed_at : m, repos[0].pushed_at || null);
         lastCommitEl.textContent = `Last commit: ${fmtDate(last)}`;
 
-        // read pinned.json if present
-        const pinnedJson = await fetchJson(FILES.pinned);
+        // pinned handling
+        const pinnedJson = await fetchJsonWithFallback('pinned.json');
         let pinnedNames = Array.isArray(pinnedJson?.pinned) ? pinnedJson.pinned : null;
-
         let pinnedItems = [];
         if(pinnedNames && pinnedNames.length){
           pinnedNames.forEach(name => {
-            const found = repoList.find(r => r.name.toLowerCase() === name.toLowerCase());
+            const found = repos.find(r => r.name.toLowerCase() === name.toLowerCase());
             if(found) pinnedItems.push(found);
           });
         }
-
-        // if pinned empty, compute top-by-stars
         if(pinnedItems.length === 0){
-          pinnedItems = [...repoList].filter(r => !r.fork).sort((a,b)=> (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at))).slice(0,6);
+          pinnedItems = [...repos].filter(r => !r.fork).sort((a,b)=> (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at))).slice(0,6);
         }
 
-        // render pinned and all repos
+        // render pinned + all
         pinnedContainer.innerHTML = '';
         pinnedItems.forEach(r => pinnedContainer.appendChild(repoCard(r)));
 
         reposGrid.innerHTML = '';
-        // show source repos first
-        const sourceRepos = repoList.filter(r => !r.fork);
+        const sourceRepos = repos.filter(r => !r.fork);
         sourceRepos.forEach(r => reposGrid.appendChild(repoCard(r)));
 
-        // update main stats (stars/forks/repos)
+        // stats UI
         const totalStars = sourceRepos.reduce((s,r)=> s + (r.stargazers_count||0), 0);
         const totalForks = sourceRepos.reduce((s,r)=> s + (r.forks_count||0), 0);
         mainStatsEl.innerHTML = `
           <div class="stat">⭐ Stars: <strong>${totalStars}</strong></div>
           <div class="stat">🍴 Forks: <strong>${totalForks}</strong></div>
-          <div class="stat">📦 Repos: <strong>${repoList.length}</strong></div>
+          <div class="stat">📦 Repos: <strong>${repos.length}</strong></div>
         `;
 
+        console.info('[profilev2] data loaded and rendered successfully');
       })();
 
     })();
