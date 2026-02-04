@@ -40,30 +40,20 @@
     .left{display:flex;align-items:center;gap:16px}
     .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;border:1px solid var(--border);background:linear-gradient(135deg,var(--accent),var(--accent-2));flex-shrink:0}
     .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-    h1{font-size:2rem;margin:0 0 6px 0}
-    .subtitle{margin:0;color:var(--muted);max-width:720px}
-    .controls{display:flex;gap:8px;align-items:center}
 
-    .btn{background:linear-gradient(180deg,var(--panel),transparent);border:1px solid var(--border);padding:8px 12px;border-radius:999px;color:var(--text);cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:8px}
-    .btn:active{transform:translateY(1px)} .btn:focus{outline:3px solid rgba(56,189,248,0.12);outline-offset:4px}
+    h1{margin:0;font-size:20px}
+    .subtitle{margin:6px 0 0 0;color:var(--muted)}
 
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
-    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+    .controls{display:flex;gap:8px}
+    .btn{background:transparent;border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:var(--card-radius);padding:16px;border:1px solid var(--border);box-shadow:var(--shadow)}
+    .repo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .repo{padding:12px;border-radius:12px;border:1px solid var(--border);background:transparent}
+    .stats{display:flex;gap:12px}
+    .stat{padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.02)}
 
-    .card{background:linear-gradient(180deg,var(--panel),transparent);border-radius:var(--card-radius);padding:18px;border:1px solid var(--border);box-shadow:var(--shadow);transition:transform 220ms}
-    .card h2{margin:0 0 8px 0}
-    .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .stat{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;border:1px solid var(--border);color:var(--muted);font-weight:700}
-
-    .repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:12px}
-    .repo{padding:12px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
-    .repo h3{margin:0 0 8px 0;font-size:1rem}
-    .repo p{margin:0;color:var(--muted);min-height:42px}
-    .meta-row{display:flex;gap:10px;align-items:center;margin-top:10px;color:var(--muted);flex-wrap:wrap}
-    .meta-row .small{font-size:0.88rem}
-    .lang-list{display:flex;gap:8px;flex-wrap:wrap}
-    .lang-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 8px;border-radius:999px;border:1px solid var(--border);font-weight:700;color:var(--muted);font-size:0.86rem}
-
+    @media(max-width:980px){ .grid{grid-template-columns:1fr} .repo-grid{grid-template-columns:repeat(1,1fr)} }
     @media(max-width:520px){ .repo p{min-height:28px} .meta-row{flex-direction:row} header.top{flex-direction:column;align-items:flex-start;gap:12px} }
 
     .contrib{width:100%;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-top:8px}
@@ -100,54 +90,34 @@
     </header>
 
     <div class="grid">
-      <section class="card fade" aria-labelledby="aboutTitle">
-        <h2 id="aboutTitle">About</h2>
-        <p id="aboutText">I’m a college student from India who enjoys understanding how systems work by building small tools, experimenting with APIs, and automating workflows.</p>
+      <aside>
+        <div class="card fade">
+          <div class="stats" id="mainStats"><div class="stat">Loading…</div></div>
 
-        <div style="display:flex;gap:16px;align-items:flex-start;margin-top:12px">
-          <div style="flex:1">
-            <div class="stats" id="mainStats"><div class="stat">Loading���</div></div>
-
-            <div style="margin-top:12px">
-              <strong>What I use</strong>
-              <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px">
-                <span class="lang-pill">Python</span>
-                <span class="lang-pill">Go</span>
-                <span class="lang-pill">C / C++</span>
-                <span class="lang-pill">Linux</span>
-              </div>
+          <div style="margin-top:12px">
+            <strong>What I use</strong>
+            <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px">
+              <span class="lang-pill">Python</span>
+              <span class="lang-pill">Go</span>
+              <span class="lang-pill">C / C++</span>
+              <span class="lang-pill">Linux</span>
             </div>
           </div>
 
-          <div style="width:220px">
+          <div style="width:220px;margin-top:12px">
             <div class="contrib" aria-hidden="false" title="Contribution graph">
               <img id="contrib" src="" alt="Contribution graph" onerror="this.style.display='none'">
             </div>
           </div>
+
+          <hr style="margin:16px 0;border:none;border-top:1px solid var(--border)">
+
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="small">Last commit: <span id="lastCommit">—</span></div>
+            </div>
+          </div>
         </div>
-
-        <hr style="margin:16px 0;border:none;border-top:1px solid var(--border)">
-
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3 style="margin:0">Pinned / Top repositories</h3>
-          <div id="lastCommit" style="color:var(--muted)">Last commit: —</div>
-        </div>
-
-        <div id="pinned" class="repo-grid" style="margin-top:12px">
-          <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
-          <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
-        </div>
-      </section>
-
-      <aside>
-        <section class="card fade">
-          <h3 style="margin-top:0">Contact</h3>
-          <p style="margin:8px 0">
-            <strong>Email:</strong> <a href="mailto:m.ankitchaubey@gmail.com">m.ankitchaubey@gmail.com</a><br>
-            <strong>GitHub:</strong> <span id="loginInline">—</span><br>
-            <strong>Telegram:</strong> <a href="https://t.me/ankify" target="_blank">@ankify</a>
-          </p>
-        </section>
 
         <section class="card fade" style="margin-top:14px">
           <h3 style="margin-top:0">Organizations</h3>
@@ -166,20 +136,42 @@
           </div>
         </section>
       </aside>
-    </div>
 
-    <section class="card fade" style="margin-top:20px">
-      <h2 style="margin-top:0">All repositories</h2>
-      <div id="reposGrid" class="repo-grid" style="margin-top:12px">
-        <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
-        <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
-      </div>
-    </section>
+      <section class="card fade" style="margin-top:0">
+        <h2 id="aboutTitle">About</h2>
+        <p id="aboutText">I’m a college student from India who enjoys understanding how systems work by building small tools, experimenting with APIs, and automating workflows.</p>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;margin-top:12px">
+          <div style="flex:1">
+            <p>
+              <strong>GitHub:</strong> <span id="loginInline">—</span><br>
+              <strong>Telegram:</strong> <a href="https://t.me/ankify" target="_blank">@ankify</a>
+            </p>
+          </div>
+        </div>
+
+        <section class="card fade" style="margin-top:20px">
+          <h2 style="margin-top:0">All repositories</h2>
+          <div id="reposGrid" class="repo-grid" style="margin-top:12px">
+            <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
+            <div class="repo"><div class="skeleton" style="width:60%"></div><div style="height:10px;margin-top:10px" class="skeleton"></div></div>
+          </div>
+        </section>
+
+      </section>
+    </div>
 
     <footer class="fade" style="margin-top:24px">© <span id="year"></span> Ankit Chaubey · Built with simplicity</footer>
   </main>
 
   <script>
+    /*
+      Robust viewer script:
+      - computes DATA_BASE dynamically (works at / or /<repo>/)
+      - fetches files with fallback and logs useful diagnostics
+      - improved computeSiteBase and clearer fetch failure overlay
+    */
+
     (function(){
       // Error overlay helper
       function showError(msg){
@@ -195,18 +187,29 @@
       window.addEventListener('error', e => { showError('Runtime error: ' + (e.error?.stack || e.message || e.toString())); });
       window.addEventListener('unhandledrejection', e => { showError('UnhandledRejection: ' + (e.reason?.stack || e.reason?.message || String(e.reason))); });
 
-      // Compute site base (works on / or /repo/)
+      // Compute site base (works on /, /repo, /repo/, /repo/index.html)
       function computeSiteBase(){
+        // e.g. pathname = "/profilev2/" or "/profilev2/index.html" or "/"
         let p = location.pathname || '/';
+        // If path doesn't end with '/', decide whether the last segment is a filename (has a dot).
         if(!p.endsWith('/')){
-          const i = p.lastIndexOf('/');
-          p = i >= 0 ? p.slice(0,i+1) : '/';
+          const last = p.slice(p.lastIndexOf('/') + 1);
+          if(last.includes('.')){
+            // looks like a filename: strip it (keep the directory)
+            const idx = p.lastIndexOf('/');
+            p = idx >= 0 ? p.slice(0, idx+1) : '/';
+          } else {
+            // looks like a directory without trailing slash: keep it and add slash
+            p = p + '/';
+          }
         }
+        // ensure it ends with slash
         if(!p.endsWith('/')) p += '/';
         return p;
       }
+
       const SITE_BASE = computeSiteBase();
-      const DATA_BASE = SITE_BASE + 'data';
+      const DATA_BASE = SITE_BASE + 'data'; // e.g. '/profilev2/data' or '/data' depending on site
       console.debug('[profilev2] SITE_BASE', SITE_BASE, 'DATA_BASE', DATA_BASE);
 
       function dataUrl(name){ return `${DATA_BASE}/${name.replace(/^\/+/, '')}`; }
@@ -219,29 +222,36 @@
           if(r.ok) return await r.json();
           console.warn('[profilev2] fetch status', r.status, 'for', u1);
         } catch(e){ console.warn('[profilev2] fetch error', e, u1); }
+
         const u2 = `/data/${name.replace(/^\/+/, '')}`;
         try {
           console.debug('[profilev2] fallback fetch', u2);
           const r2 = await fetch(u2, {cache:'no-cache'});
           if(r2.ok) return await r2.json();
           console.warn('[profilev2] fallback status', r2.status, 'for', u2);
-        } catch(e){ console.warn('[profilev2] fallback error', e, u2); }
+        } catch(e){ console.warn('[profilev2] fallback fetch error', e, u2); }
+
+        // Both attempts failed — make it visible on-page for easier diagnosis.
+        try {
+          showError(`Failed fetching data("${name}") from:\n  ${u1}\n  ${u2}\nOpen DevTools Network tab and check these URLs (status, response).`);
+        } catch(e){
+          console.error('[profilev2] failed to show fetch error overlay', e);
+        }
         return null;
       }
 
-      // Set contrib image robustly
-      const contribImg = document.getElementById('contrib');
-      (function setContrib(){
-        if(!contribImg) return;
-        const p = dataUrl('contrib.svg');
-        contribImg.src = p;
-        contribImg.onerror = () => { if(!contribImg.dataset.fallback){ contribImg.dataset.fallback = '1'; contribImg.src = '/data/contrib.svg'; } };
-      })();
+      // helper DOM queries
+      function qs(sel){ return document.querySelector(sel); }
+      function qsa(sel){ return Array.from(document.querySelectorAll(sel)); }
 
-      // DOM refs
-      const qs = s => document.querySelector(s);
-      const avatarEl = qs('#avatar'), nameEl = qs('#name'), bioEl = qs('#bio'), joinedEl = qs('#joined');
-      const profileBtn = qs('#profileBtn'), loginEl = qs('#login'), loginInlineEl = qs('#loginInline');
+      const avatarEl = qs('#avatar');
+      const nameEl = qs('#name');
+      const bioEl = qs('#bio');
+      const joinedEl = qs('#joined');
+      const profileBtn = qs('#profileBtn');
+      const loginEl = qs('#login');
+      const loginInlineEl = qs('#loginInline');
+
       const mainStatsEl = qs('#mainStats'), pinnedContainer = qs('#pinned'), reposGrid = qs('#reposGrid');
       const orgsContainer = qs('#orgs'), lastCommitEl = qs('#lastCommit');
       const totalPublicEl = qs('#totalPublic'), totalSourceEl = qs('#totalSource'), totalForksEl = qs('#totalForks');
@@ -251,36 +261,6 @@
 
       function fmtDate(iso){ if(!iso) return '—'; try{ return new Date(iso).toLocaleDateString(); }catch(e){ return iso; } }
       function esc(s){ return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
-      function langColor(lang){ const M = {'JavaScript':'#f1e05a','TypeScript':'#2b7489','Python':'#3572A5','Go':'#00ADD8','C':'#555','C++':'#f34b7d','Rust':'#dea584','Java':'#b07219','HTML':'#e34c26','CSS':'#563d7c','Shell':'#89e051'}; return M[lang] || '#94a3b8'; }
-
-      function repoCard(r){
-        const div = document.createElement('div');
-        div.className = 'repo';
-        const homepage = r.homepage ? `<a href="${r.homepage}" target="_blank" rel="noopener noreferrer">Website</a> · ` : '';
-        const desc = r.description ? esc(r.description) : 'No description provided.';
-        const latest = r.latest_commit && r.latest_commit.date ? `Last commit: ${fmtDate(r.latest_commit.date)}` : `Updated: ${fmtDate(r.pushed_at)}`;
-        let langsHtml = '';
-        if(r.languages && Object.keys(r.languages).length){
-          const entries = Object.entries(r.languages).sort((a,b)=>b[1]-a[1]).slice(0,4);
-          const total = entries.reduce((s,[,v])=>s+v,0);
-          const pills = entries.map(([lang,bytes])=> {
-            const pct = Math.round((bytes/total)*100);
-            return `<span class="lang-pill"><span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:${langColor(lang)}"></span>${esc(lang)} ${pct}%</span>`;
-          }).join(' ');
-          langsHtml = `<div class="lang-list">${pills}</div>`;
-        }
-        const commitMsg = r.latest_commit && r.latest_commit.message ? ` · "${esc(r.latest_commit.message)}"` : '';
-        div.innerHTML = `
-          <h3><a href="${r.html_url}" target="_blank" rel="noopener">${esc(r.name)}</a></h3>
-          <p>${desc}</p>
-          ${langsHtml}
-          <div class="meta-row">
-            <div class="small">${homepage}★ ${r.stargazers_count || 0} · Forks: ${r.forks_count || 0}</div>
-            <div class="small">${latest}${commitMsg}</div>
-          </div>
-        `;
-        return div;
-      }
 
       // theme cycle
       (function themeInit(){
@@ -303,7 +283,7 @@
             totalSourceEl.textContent = summary.source_repos_count ?? '—';
             totalForksEl.textContent = summary.total_forks ?? '—';
             followersEl.textContent = summary.followers ?? '—';
-            totalCommitsEl.textContent = summary.total_commits ? `${summary.total_commits} (partial)` : (summary.total_commits === null ? '—' : (summary.total_commits ?? '—'));
+            totalCommitsEl.textContent = summary?.total_commits ? `${summary.total_commits} (partial)` : (summary?.total_commits === null ? '—' : (summary?.total_commits ?? '—'));
             updatedAtEl.textContent = summary.updated_at ? fmtDate(summary.updated_at) : (summary.updatedAt ? fmtDate(summary.updatedAt) : '—');
           }
 
@@ -323,72 +303,37 @@
             orgsContainer.innerHTML = '';
             orgs.forEach(o=>{
               const d = document.createElement('div');
-              d.style.display='flex'; d.style.gap='10px'; d.style.alignItems='center'; d.style.marginBottom='10px';
-              d.innerHTML = `<img src="${o.avatar_url}" alt="${o.login}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--border)"><div style="flex:1"><strong>${esc(o.login)}</strong><div style="color:var(--muted);font-size:0.92rem">${esc(o.description||'')}</div></div><a style="color:var(--accent)" href="${o.html_url}" target="_blank" rel="noopener">View</a>`;
+              d.style.display = 'flex';
+              d.style.alignItems = 'center';
+              d.style.gap = '8px';
+              d.innerHTML = `<img src="${o.avatar_url}" style="width:28px;height:28px;border-radius:6px" alt="${esc(o.login)}"> <div style="font-size:13px">${esc(o.login)}</div>`;
               orgsContainer.appendChild(d);
             });
           }
 
+          const contribUrl = dataUrl('contrib.svg');
+          const contribEl = qs('#contrib');
+          contribEl.src = contribUrl;
+
+          const pinned = await fetchJsonWithFallback('pinned.json');
+          // pinned may be simple structure; ignore if missing
+
           const repos = await fetchJsonWithFallback('repos.json');
-          if(!Array.isArray(repos) || repos.length === 0){
-            reposGrid.innerHTML = '<div style="color:var(--muted)">Repository data not yet generated. Run the generator workflow.</div>';
-            pinnedContainer.innerHTML = '<div style="color:var(--muted)">Repository data not yet generated.</div>';
-            console.warn('[profilev2] repos.json missing or empty');
-            return;
-          }
-
-          // last commit
-          const last = repos.reduce((m,r)=> r.pushed_at > m ? r.pushed_at : m, repos[0].pushed_at || null);
-          lastCommitEl.textContent = `Last commit: ${fmtDate(last)}`;
-
-          // pinned
-          const pinnedJson = await fetchJsonWithFallback('pinned.json');
-          let pinnedNames = Array.isArray(pinnedJson?.pinned) ? pinnedJson.pinned : null;
-          let pinnedItems = [];
-          if(pinnedNames && pinnedNames.length){
-            pinnedNames.forEach(name => {
-              const found = repos.find(r => r.name.toLowerCase() === name.toLowerCase());
-              if(found) pinnedItems.push(found);
+          if(Array.isArray(repos)){
+            reposGrid.innerHTML = '';
+            repos.slice(0,50).forEach(repo=>{
+              const r = document.createElement('div');
+              r.className = 'repo';
+              const desc = repo.description ? `<div style="margin-top:6px;color:var(--muted)">${esc(repo.description)}</div>` : '';
+              r.innerHTML = `<div><strong><a href="${repo.html_url}" target="_blank" rel="noopener">${esc(repo.name)}</a></strong>${desc}</div>`;
+              reposGrid.appendChild(r);
             });
           }
-          if(pinnedItems.length === 0){
-            pinnedItems = [...repos].filter(r => !r.fork).sort((a,b)=> (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at))).slice(0,6);
-          }
 
-          pinnedContainer.innerHTML = '';
-          pinnedItems.forEach(r => pinnedContainer.appendChild(repoCard(r)));
+          // reveal fade elements
+          qsa('.fade').forEach(el=>el.classList.add('show'));
 
-          reposGrid.innerHTML = '';
-          const sourceRepos = repos.filter(r => !r.fork);
-          sourceRepos.forEach(r => reposGrid.appendChild(repoCard(r)));
-
-          // Summary/backwards compatibility: accept snake_case or camelCase; compute if missing
-          const summaryTotalStars = summary?.total_stars ?? summary?.totalStars;
-          const summaryTotalForks = summary?.total_forks ?? summary?.totalForks;
-          const summaryUpdatedAt = summary?.updated_at ?? summary?.updatedAt ?? summary?.updated;
-
-          const computedStars = sourceRepos.reduce((s,r) => s + (r.stargazers_count || 0), 0);
-          const computedForks = sourceRepos.reduce((s,r) => s + (r.forks_count || 0), 0);
-          const computedUpdated = last;
-
-          const totalStarsVal = (typeof summaryTotalStars === 'number') ? summaryTotalStars : computedStars;
-          const totalForksVal = (typeof summaryTotalForks === 'number') ? summaryTotalForks : computedForks;
-          const updatedAtVal = summaryUpdatedAt || computedUpdated;
-
-          mainStatsEl.innerHTML = `
-            <div class="stat">⭐ Stars: <strong>${totalStarsVal}</strong></div>
-            <div class="stat">🍴 Forks: <strong>${totalForksVal}</strong></div>
-            <div class="stat">📦 Repos: <strong>${repos.length}</strong></div>
-          `;
-
-          totalPublicEl.textContent = summary?.total_public_repos ?? repos.length;
-          totalSourceEl.textContent = summary?.source_repos_count ?? sourceRepos.length;
-          totalForksEl.textContent = totalForksVal;
-          followersEl.textContent = summary?.followers ?? profile?.followers ?? '—';
-          totalCommitsEl.textContent = summary?.total_commits ? `${summary.total_commits} (partial)` : (summary?.total_commits === null ? '—' : (summary?.total_commits ?? '—'));
-          updatedAtEl.textContent = updatedAtVal ? fmtDate(updatedAtVal) : '—';
-
-          console.info('[profilev2] rendered repos:', repos.length);
+          console.info('[profilev2] rendered repos:', Array.isArray(repos) ? repos.length : 0);
         }catch(err){
           console.error('Render error', err);
           showError('Render error: ' + (err.stack || err.message || err));
